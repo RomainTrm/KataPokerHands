@@ -17,7 +17,7 @@ namespace KataPokerHands
         private Card GetHighestCard() => card1 > card2 ? card1 : card2;
         private Card GetLowestCard() => card1 < card2 ? card1 : card2;
 
-        public static PokerHand GetBestHand(PokerHand hand1, PokerHand hand2)
+        public static Maybe<PokerHand> GetBestHand(PokerHand hand1, PokerHand hand2)
         {
             if (hand1.GetHighestCard() > hand2.GetHighestCard())
                 return hand1;
@@ -25,7 +25,9 @@ namespace KataPokerHands
                 return hand2;
             else if (hand1.GetLowestCard() > hand2.GetLowestCard())
                 return hand1;
-            return hand2;
+            else if (hand1.GetLowestCard() < hand2.GetLowestCard())
+                return hand2;
+            return Maybe<PokerHand>.Nothing();
         }
 
         public override string ToString() => $"{nameof(PokerHand)} [{card1}; {card2}]";

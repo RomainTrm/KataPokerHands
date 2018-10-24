@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maybe.cs" />
     <Compile Include="PokerHand.cs" />
     <Compile Include="PokerHandShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
