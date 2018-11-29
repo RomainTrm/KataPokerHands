@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Notes.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FsCheck.Xunit" Version="2.13.0" />
   </ItemGroup>
 
