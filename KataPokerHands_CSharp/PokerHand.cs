@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Value;
 
-namespace KataPokerHands
+namespace KataPokerHands_CSharp
 {
     public class PokerHand : ValueType<PokerHand>
     {
@@ -14,8 +14,8 @@ namespace KataPokerHands
             _card2 = card2;
         }
 
-        private Card GetHighestCard() => _card1 > _card2 ? _card1 : _card2;
-        private Card GetLowestCard() => _card1 < _card2 ? _card1 : _card2;
+        public Card GetHighestCard() => _card1 > _card2 ? _card1 : _card2;
+        public Card GetLowestCard() => _card1 < _card2 ? _card1 : _card2;
 
         public static Maybe<PokerHand> GetBestHand(PokerHand hand1, PokerHand hand2)
         {
@@ -40,31 +40,24 @@ namespace KataPokerHands
 
     public class Card : ValueType<Card>
     {
-        private readonly Suits _suit;
         private readonly Values _value;
 
-        public Card(Suits suit, Values value)
+        public Card(Values value)
         {
-            _suit = suit;
             _value = value;
         }
 
         protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
         {
-            return new object[] { _suit, _value };
+            return new object[] { _value };
         }
 
-        public override string ToString() => $"{nameof(Card)} [{_suit}-{_value}]";
+        public override string ToString() => $"{nameof(Card)} [{_value}]";
 
         public static bool operator >(Card left, Card right) => left._value > right._value;
         public static bool operator <(Card left, Card right) => left._value < right._value;
     }
-
-    public enum Suits
-    {
-        Clubs, Diamonds, Hearts, Spades
-    }
-
+    
     public enum Values
     {
         Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace

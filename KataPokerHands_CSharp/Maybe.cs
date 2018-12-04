@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Value;
 
-namespace KataPokerHands
+namespace KataPokerHands_CSharp
 {
     public class Maybe<TValue> : ValueType<Maybe<TValue>>
     {

@@ -1,4 +1,4 @@
-module PokerHand
+module PokerHand_PropertyBase
 
 open FsCheck
 open FsCheck.Xunit

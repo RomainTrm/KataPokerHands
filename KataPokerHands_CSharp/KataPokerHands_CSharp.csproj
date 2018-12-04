@@ -5,6 +5,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="FsCheck.Xunit" Version="2.13.0" />
     <PackageReference Include="NFluent" Version="2.4.0" />
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="Value" Version="1.1.0.1" />
