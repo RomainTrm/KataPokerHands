@@ -5,59 +5,59 @@ namespace KataPokerHands
 {
     public class PokerHand : ValueType<PokerHand>
     {
-        private readonly Card card1;
-        private readonly Card card2;
+        private readonly Card _card1;
+        private readonly Card _card2;
 
         public PokerHand(Card card1, Card card2)
         {
-            this.card1 = card1;
-            this.card2 = card2;
+            _card1 = card1;
+            _card2 = card2;
         }
 
-        private Card GetHighestCard() => card1 > card2 ? card1 : card2;
-        private Card GetLowestCard() => card1 < card2 ? card1 : card2;
+        private Card GetHighestCard() => _card1 > _card2 ? _card1 : _card2;
+        private Card GetLowestCard() => _card1 < _card2 ? _card1 : _card2;
 
         public static Maybe<PokerHand> GetBestHand(PokerHand hand1, PokerHand hand2)
         {
             if (hand1.GetHighestCard() > hand2.GetHighestCard())
                 return hand1;
-            else if (hand1.GetHighestCard() < hand2.GetHighestCard())
+            if (hand1.GetHighestCard() < hand2.GetHighestCard())
                 return hand2;
-            else if (hand1.GetLowestCard() > hand2.GetLowestCard())
+            if (hand1.GetLowestCard() > hand2.GetLowestCard())
                 return hand1;
-            else if (hand1.GetLowestCard() < hand2.GetLowestCard())
+            if (hand1.GetLowestCard() < hand2.GetLowestCard())
                 return hand2;
             return Maybe<PokerHand>.Nothing();
         }
 
-        public override string ToString() => $"{nameof(PokerHand)} [{card1}; {card2}]";
+        public override string ToString() => $"{nameof(PokerHand)} [{_card1}; {_card2}]";
 
         protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
         {
-            return new object[] { card1, card2 };
+            return new object[] { _card1, _card2 };
         }
     }
 
     public class Card : ValueType<Card>
     {
-        private readonly Suits suit;
-        private readonly Values value;
+        private readonly Suits _suit;
+        private readonly Values _value;
 
         public Card(Suits suit, Values value)
         {
-            this.suit = suit;
-            this.value = value;
+            _suit = suit;
+            _value = value;
         }
 
         protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
         {
-            return new object[] { suit, value };
+            return new object[] { _suit, _value };
         }
 
-        public override string ToString() => $"{nameof(Card)} [{suit}-{value}]";
+        public override string ToString() => $"{nameof(Card)} [{_suit}-{_value}]";
 
-        public static bool operator >(Card left, Card right) => left.value > right.value;
-        public static bool operator <(Card left, Card right) => left.value < right.value;
+        public static bool operator >(Card left, Card right) => left._value > right._value;
+        public static bool operator <(Card left, Card right) => left._value < right._value;
     }
 
     public enum Suits
