@@ -17,8 +17,13 @@ namespace KataPokerHands_CSharp
         public Card GetHighestCard() => _card1 > _card2 ? _card1 : _card2;
         public Card GetLowestCard() => _card1 < _card2 ? _card1 : _card2;
 
+        private bool IsAPair => _card1 == _card2;
+
         public static Maybe<PokerHand> GetBestHand(PokerHand hand1, PokerHand hand2)
         {
+            if (hand1.IsAPair && !hand2.IsAPair) return hand1;
+            if (hand2.IsAPair && !hand1.IsAPair) return hand2;
+
             if (hand1.GetHighestCard() > hand2.GetHighestCard())
                 return hand1;
             if (hand1.GetHighestCard() < hand2.GetHighestCard())
