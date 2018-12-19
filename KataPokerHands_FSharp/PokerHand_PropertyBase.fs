@@ -32,11 +32,11 @@ let getWorstCard card1 card2 =
     |> List.head
     
 let getBestPair card1 card2 = 
-    if card1 = card2
-    then Draw
-    elif getBestCard card1 card2 = card1
-    then Winner (card1, card1)
-    else Winner (card2, card2)
+    if card1 = card2 then 
+        Draw
+    else
+        let bestCard = getBestCard card1 card2
+        Winner (bestCard, bestCard)
 
 let getBestHandWhenNotPairs (h1c1, h1c2) (h2c1, h2c2) =
     let compareHands getCardToCompare =
@@ -57,13 +57,16 @@ let getBestHandWhenNotPairs (h1c1, h1c2) (h2c1, h2c2) =
     | Draw, winner -> winner
     | winner, _ -> winner
 
-let isPair (card1, card2) = card1 = card2 
+let (|Pair|_|) (card1, card2) =
+    if card1 = card2
+    then Some card1
+    else None
 
 let getBestHand hand1 hand2 = 
     match hand1, hand2 with
-    | (h1c1, _), (h2c1, _) when hand1 |> isPair && hand2 |> isPair -> getBestPair h1c1 h2c1
-    | _, _ when hand1 |> isPair -> Winner hand1
-    | _, _ when hand2 |> isPair -> Winner hand2
+    | Pair card1, Pair card2 -> getBestPair card1 card2
+    | Pair _, _ -> Winner hand1
+    | _, Pair _ -> Winner hand2
     | _, _ -> getBestHandWhenNotPairs hand1 hand2
 
 // Tests for getting best or worst card
