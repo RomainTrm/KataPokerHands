@@ -40,12 +40,12 @@ let getBestPair card1 card2 =
 
 let getBestHandWhenNotPairs (h1c1, h1c2) (h2c1, h2c2) =
     let compareHands getCardToCompare =
-        let bestCardHand1 = getCardToCompare h1c1 h1c2
-        let bestCardHand2 = getCardToCompare h2c1 h2c2
+        let cardHand1 = getCardToCompare h1c1 h1c2
+        let cardHand2 = getCardToCompare h2c1 h2c2
 
-        if bestCardHand1 = bestCardHand2
+        if cardHand1 = cardHand2
         then Draw
-        elif getBestCard bestCardHand1 bestCardHand2 = bestCardHand1 
+        elif getBestCard cardHand1 cardHand2 = cardHand1 
         then Winner (h1c1, h1c2)
         else Winner (h2c1, h2c2)
 
@@ -108,10 +108,10 @@ let ``When the strongest cards are equals, the best hand is the one with the str
     (getBestHand (Ace, card1) (Ace, card2) = Winner (Ace, bestSecondCard)) |@ "Pair with best card as right card"
     
 [<Property>]
-let ``Lowest pair is always better than random hand`` card1 card2 =
+let ``Pair is always better than random hand`` card1 card2 =
     card1 <> card2 ==> lazy
-    (getBestHand (Two, Two) (card1, card2) = Winner (Two, Two)) |@ "Pair as left hand" .&.
-    (getBestHand (card1, card2) (Two, Two) = Winner (Two, Two)) |@ "Pair as right hand"
+    (getBestHand (card1, card1) (card1, card2) = Winner (card1, card1)) |@ "Pair as left hand" .&.
+    (getBestHand (card1, card2) (card2, card2) = Winner (card2, card2)) |@ "Pair as right hand"
 
 [<Property>]
 let ``The best pair is the one with best card`` card1 card2 =
